@@ -92,7 +92,7 @@ const AddStockAudit = ({ navigation, route }) => {
             }
 
         ).then(res => {
-            console.log("response", res);
+            console.log("Product List", res);
             setProductInfo(res.data.productList)
 
         }).catch(err => console.log('Add claim line 151 ->', err))
@@ -224,7 +224,6 @@ const AddStockAudit = ({ navigation, route }) => {
         console.log('Data Items', data);
         console.log('155 coupon code', GlobalBox);
         // setButtonDiabled(true);
-return
         await BaseService.post('AppStock/addStockAudit',
             {
                 'data': data,
@@ -281,7 +280,7 @@ return
                 ProductInfo.map((s, index) => {
                     s.id &&
                         productArray.push(
-                            <Picker.Item style={{ fontSize: 14, backgroundColor: 'red' }} label={s.productName} value={s.id} key={index} />
+                            <Picker.Item style={{ fontSize: 14}} label={s.productName} value={s.id} key={index} />
                         )
                 })
         }
@@ -422,7 +421,7 @@ return
                                                         setProductName(ProductInfo[product_id].productName)
                                                     } else {
                                                         console.log("check loop again");
-                                                        console.log("WarehouseID", wareHouseInfo[Transfer_id].id);
+                                                        // console.log("WarehouseID", wareHouseInfo[Transfer_id].id);
                                                         console.log("WarehouseID Type", e);
                                                     }
                                                 }}
@@ -432,7 +431,7 @@ return
                                             </Picker>
                                         </View>
                                         <View style={{ marginHorizontal: 16, alignItems: 'center' }}>
-                                            <Button mode='contained' icon={'plus-box'} color={AppTheme.Dark} labelStyle={{ fontSize: 14, color: AppTheme.Light }} style={{ marginVertical: 8, width: '50%' }} onPress={() => Addproduct()}>Add</Button>
+                                            <Button mode='contained' disabled={product == "" ? true : false} icon={'plus-box'} color={AppTheme.Dark} labelStyle={{ fontSize: 14, color: AppTheme.Light }} style={{ marginVertical: 8, width: '50%' }} onPress={() => Addproduct()}>Add</Button>
                                         </View>
                                     </View>
                                     : null}
@@ -446,11 +445,11 @@ return
                                     renderItem={RenderBoxList}
                                 />
                                 <View style={{ alignItems: 'flex-end', marginBottom: 'auto', flexDirection: 'row', justifyContent: "space-evenly" }}>
-                                    <View style={{ width: '35%' }}>
-                                        <AppButton title="Draft" disabled={buttonDisabled} onPress={() => PlaceOrder("Draft")} />
+                                    <View style={{ width: '35%' ,paddingBottom:12}}>
+                                        <AppButton title="Draft" disabled={AuditTitle == "" ? true : false} onPress={() => PlaceOrder("Draft")} />
                                     </View>
-                                    <View style={{ width: '35%' }}>
-                                        <AppButton title="Save" disabled={buttonDisabled} onPress={() => PlaceOrder("Complete")} />
+                                    <View style={{ width: '35%' ,paddingBottom:12}}>
+                                        <AppButton title="Save" disabled={AuditTitle == "" ? true : false} onPress={() => PlaceOrder("Complete")} />
                                     </View>
                                 </View>
                             </>

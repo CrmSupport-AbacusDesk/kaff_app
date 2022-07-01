@@ -46,13 +46,6 @@ componentDidMount=()=> {
 }
 const App = () => {
 
-//    const componentDidMount=() =>{
-//     	// do stuff while splash screen is shown
-//         // After having done stuff (such as async tasks) hide the splash screen
-//         SplashScreen.hide();
-//     }
-
-
     const [userObj, setUserObj] = useState({
         storedId: null,
         storedToken: null,
@@ -71,16 +64,13 @@ const App = () => {
     }
 
     // useEffect(() => {
-    //     registerForPushNotificationsAsync();
-    //     CheckAppVersionUpdate();
 
     //     setTimeout(async () => {
     //         try {
     //             userObj.storedId = await AsyncStorage.getItem('@id');
     //             userObj.storedToken = await AsyncStorage.getItem('@token');
-    //             userObj.storedMobile = await AsyncStorage.getItem('@mobile');
-    //             userObj.storedOtpStatus = await AsyncStorage.getItem('@isVerified')
-    //             userObj.storedUserType = await AsyncStorage.getItem('@userType');
+    //             userObj.storedName = await AsyncStorage.getItem('@WarehouseName');
+    //             userObj.storedCode = await AsyncStorage.getItem('@WarehouseCode')
     //         } catch (e) {
     //             console.log("Error Unable to fetch loggedIn User", e.message);
     //         }
@@ -98,82 +88,14 @@ const App = () => {
 
     //         dispatch({
     //             type: 'RETRIEVE_TOKEN',
-    //             userId: userObj.storedId,
+    //             id: userObj.storedId,
     //             token: userObj.storedToken,
-    //             mobile: userObj.storedMobile,
-    //             otpStatus: JSON.parse(userObj.storedOtpStatus),
-    //             userType: userObj.storedUserType
+    //             Name: userObj.storedName,
+    //             Code: userObj.storedCode
     //         });
     //     }, 1500);
 
-    //     const unsubscribe = NetInfo.addEventListener(state => {
-    //         if (!state.isConnected) {
-    //             Alert.alert(
-    //                 "Check your internet connection",
-    //                 [
-    //                     { text: 'OK' }
-    //                 ],
-    //                 { cancelable: true }
-    //             );
-    //             // Alert.alert('Check your internet connection');
-    //         }
-    //     });
-    //     unsubscribe();
     // }, []);
-
-    // const registerForPushNotificationsAsync = async () => {
-    //     if (Constants.isDevice) {
-    //         const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    //         let finalStatus = existingStatus;
-    //         if (existingStatus !== 'granted') {
-    //             const { status } = await Notifications.requestPermissionsAsync();
-    //             finalStatus = status;
-    //         }
-    //         // if (finalStatus !== 'granted') {
-    //         //      alert('Failed to get push token for push notification!');
-    //         //     return;
-    //         // }
-    //         const token = (await Notifications.getExpoPushTokenAsync()).data;
-    //         console.log('At line 53', token);
-    //         await AsyncStorage.setItem('@MobileToken', token);
-    //         //console.log('@MobileToken')
-    
-    //     } else {
-    //         alert('Must use physical device for Push Notifications');
-    //     }
-    
-    //     if (Platform.OS === 'android') {
-    //         Notifications.setNotificationChannelAsync('default', {
-    //             name: 'default',
-    //             importance: Notifications.AndroidImportance.MAX,
-    //             vibrationPattern: [0, 250, 250, 250],
-    //             lightColor: '#FF231F7C',
-    //         });
-    //     }
-    // };
-
-
-
-
-    // const CheckAppVersionUpdate = async () => {
-    //     try {
-    //         const update = await Updates.checkForUpdateAsync();
-    //         if (update.isAvailable) {
-    //             await Updates.fetchUpdateAsync();
-
-    //             Alert.alert(
-    //                 'Update',
-    //                 `Latest App Version Available`,
-    //                 [
-    //                     { text: 'OK', onPress: async () => await Updates.reloadAsync() }
-    //                 ],
-    //                 { cancelable: false }
-    //             );
-    //         }
-    //     } catch (e) {
-    //         console.log('Error thrown during app update check', e.message);
-    //     }
-    // }
 
 
     const userReducer = (prevState, action) => {
@@ -202,8 +124,9 @@ const App = () => {
             //     return {
             //         ...prevState,
             //         userToken: action.token,
-            //         userId: action.userId,
-            //         userMobile: action.mobile,
+            //         userId: action.id,
+            //         userWarehouseCode: action.Code,
+            //         userWarehouseName: action.Name,
             //         isLoading: false,
             //     };
 
@@ -212,6 +135,40 @@ const App = () => {
         }
     }
 
+    // useEffect(() => {
+
+    //     setTimeout(async () => {
+    //         try {
+    //             userObj.storedId = await AsyncStorage.getItem('@id');
+    //             userObj.storedToken = await AsyncStorage.getItem('@token');
+    //             userObj.storedName = await AsyncStorage.getItem('@WarehouseName');
+    //             userObj.storedCode = await AsyncStorage.getItem('@WarehouseCode')
+    //         } catch (e) {
+    //             console.log("Error Unable to fetch loggedIn User", e.message);
+    //         }
+
+    //         BaseService.post('Login/login', { "mobileNo": userObj.storedMobile }).then(response => {
+    //             let res = response.data;
+    //             console.log(res);
+    //             if (res.token == "" && response.status == 200) {
+    //                 SignOut();
+    //             }
+    //             else if (response.status == 200 && res.id != userObj.storedId) {
+    //                 SignOut();
+    //             }
+    //         }).catch(err => console.log(err))
+
+    //         dispatch({
+    //             type: 'RETRIEVE_TOKEN',
+    //             id: userObj.storedId,
+    //             token: userObj.storedToken,
+    //             Name: userObj.storedName,
+    //             Code: userObj.storedCode
+    //         });
+    //     }, 1500);
+
+    // }, []);
+
     const [userState, dispatch] = React.useReducer(userReducer, initialUserState);
 
     const signInUser = async (pId, pToken, pCode , pName) => {
@@ -219,7 +176,6 @@ const App = () => {
         if (pToken != null) {
             try {
                 await AsyncStorage.setItem('@token', pToken);
-                // await AsyncStorage.setItem('@mobile', pMobile);
                 await AsyncStorage.setItem('@id', pId);
                 await AsyncStorage.setItem('@WarehouseName', pName);
                 await AsyncStorage.setItem('@WarehouseCode', pCode);
@@ -229,38 +185,6 @@ const App = () => {
         }
         dispatch({ type: 'LOGIN', id: pId, token: pToken,  WarehouseName: pName, WarehouseCode: pCode });
     };
-
-
-    // const VerifyOtp = async (isVerified) => {
-    //     console.log('App.js Inside Verify Otp');
-    //     isVerified = true;
-    //     try {
-    //         await AsyncStorage.setItem('@isVerified', JSON.stringify(isVerified));
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    //     dispatch({ type: 'VERIFY_OTP', isOtpVerified: true });
-    // };
-
-    // const SignUpUser = async (pId, pToken, pMobile, pUserType) => {
-    //     console.log('SignUp User Called');
-    //     let otpStatus = false;
-    //     if (pToken != null && pMobile != null && pUserType != null) {
-    //         try {
-    //             await AsyncStorage.setItem('@token', pToken);
-    //             await AsyncStorage.setItem('@mobile', pMobile);
-    //             await AsyncStorage.setItem('@id', pId);
-    //             await AsyncStorage.setItem('@isVerified', JSON.stringify(false));
-    //             await AsyncStorage.setItem('@userType', pUserType);
-
-
-    //         } catch (e) {
-    //             console.log(e)
-    //         }
-    //     }
-    //     dispatch({ type: 'REGISTER', id: pId, token: pToken, mobile: pMobile, isVerified: otpStatus, userType: pUserType });
-    // }
-
 
     const SignOut = async () => {
         try {

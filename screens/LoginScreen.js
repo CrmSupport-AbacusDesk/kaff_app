@@ -1,6 +1,6 @@
 
 import React, { useContext, useState } from 'react';
-import { View, Image, Alert, SafeAreaView, ScrollView, StyleSheet, Keyboard, Text } from 'react-native';
+import { View, Image, Alert, SafeAreaView, ScrollView, StyleSheet, Keyboard, Text, ImageBackground } from 'react-native';
 import { Title, TextInput, Button, Caption } from 'react-native-paper';
 import { Formik } from 'formik';
 import AppButton from '../Componenets/AppButton/AppButton';
@@ -112,7 +112,7 @@ export default function LogIn({ navigation }) {
                     // await AsyncStorage.setItem('userCredentials', JSON.stringify(data));
 
                     if (res.data.token != '') {
-                        signInUser(res.data.id, res.data.token,res.data.warehouse_code,res.data.warehouse_name);
+                        signInUser(res.data.id, res.data.token, res.data.warehouse_code, res.data.warehouse_name);
                     }
 
                     setShowSnackBar(true);
@@ -161,7 +161,7 @@ export default function LogIn({ navigation }) {
                 }
 
             } catch (error) {
-                console.log("err",error);
+                console.log("err", error);
                 alert(error);
                 setDisableButton(false);
             }
@@ -184,130 +184,153 @@ export default function LogIn({ navigation }) {
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
-
-            {/* <Statusbar backgroundColor={AppTheme.Primary} /> */}
-
-            {isLoading ?
-
-                <AppLoader loading={isLoading} />
-
-                :
-
-                // (
-                // connectStatus ?
-
-                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flex: 1 }} keyboardShouldPersistTaps='handled'>
-                    <Formik
-                        initialValues={{
-                            username: '', password: ''
-                        }}
-                        valid
-                        validationSchema={SignupSchema}
-                        onSubmit={submit}
-
-                    >
-
-                        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-                            <>
-
-                                <View style={{ paddingHorizontal: 16, flex: 1 }}>
-
-                                    <View style={[GlobelStyle.loginBlock, { height: 180, paddingTop: 30 }]}>
-                                        {/* <View style={[GlobelStyle.logoContainer]}>
-                                                    <Image resizeMode="contain" style={GlobelStyle.logo} source={require("../../assets/logo.png")} />
-                                                </View> */}
-                                    </View>
+            <ImageBackground source={require("../Assets/background.jpg")} resizeMode="cover" style={styles.image}>
 
 
+                {/* <Statusbar backgroundColor={AppTheme.Primary} /> */}
 
-                                    <View style={[GlobelStyle.Card]}>
+                {isLoading ?
 
-                                        {/* <LinearGradient colors={['#00afef', '#00afef', '#3b5998']} style={[GlobelStyle.linearGradient, { height: 340 }]}> */}
+                    <AppLoader loading={isLoading} />
 
-                                        <View style={[GlobelStyle.loginMessage, { paddingTop: 20 }]}>
-                                            <Title style={[GlobelStyle.loginSubTitle, { fontSize: 14 }]}>Please Login to Continue...</Title>
-                                        </View>
-                                        <View>
-                                            <TextInput
-                                                icon="phone"
-                                                name="username"
-                                                mode="outlined"
-                                                label="Username"
-                                                placeholderTextColor='#828088'
-                                                // placeholder="Username"
-                                                type="textInput"
-                                                value={values.username}
-                                                autoCorrect={false}
-                                                onChangeText={handleChange('username')}
-                                                onBlur={handleBlur('username')}
-                                                left={<TextInput.Icon name="account" />}
-                                            />
-                                            {errors.username && touched.username &&
-                                                <Caption style={GlobelStyle.errorMsg}>{errors.username}</Caption>
-                                            }
-                                        </View>
-                                        <View style={[styles.passwordContainer, { marginTop: 6 }]}>
-                                            <TextInput
-                                                icon="phone"
-                                                name="password"
-                                                label="Password"
-                                                placeholder="Enter your password"
-                                                mode="outlined"
-                                                placeholderTextColor='#828088'
-                                                type="textInput"
-                                                value={values.password}
-                                                autoCorrect={false}
-                                                onChangeText={handleChange('password')}
-                                                onBlur={handleBlur('password')}
-                                                secureTextEntry={hidePass}
-                                                right={values.password.length > 0 && <TextInput.Icon name={hidePass ? 'eye-off' : 'eye'}
-                                                    onPress={() => changeIcon()} />}
-                                                left={<TextInput.Icon name="key" />}
-                                            />
-                                            {errors.password && touched.password &&
-                                                <Caption style={GlobelStyle.errorMsg}>{errors.password}</Caption>
-                                            }
-                                        </View>
+                    :
 
-                                        {/* <View style={[GlobelStyle.alignEnd, { marginRight: -15 }]}>
+                    // (
+                    // connectStatus ?
+
+                    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flex: 1 }} keyboardShouldPersistTaps='handled'>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', marginVertical: 26, }}>
+                            <Title style={[styles.logo]} >KAFF</Title>
+                        </View>
+                        <Formik
+                            initialValues={{
+                                username: '', password: ''
+                            }}
+                            valid
+                            validationSchema={SignupSchema} 
+                            onSubmit={submit}
+
+                        >
+
+                            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                                <>
+
+                                    <View style={{ margin: 16, flex: 1, paddingTop: 12 }}>
+                                        <View style={[GlobelStyle.Card, { backgroundColor: "white" }]}>
+                                            <View style={[{ paddingTop: 20, padding: 24 }]}>
+                                                <Title style={[{ color: "#424242", fontSize: 18, fontFamily: 'Roboto', fontWeight: 'bold' }]}>LOGIN</Title>
+                                                <Text>Please sign in to continue.</Text>
+                                            </View>
+                                            <View style={{ backgroundColor: "white", padding: 16, }}>
+
+                                                {/* <LinearGradient colors={['#00afef', '#00afef', '#3b5998']} style={[GlobelStyle.linearGradient, { height: 340 }]}> */}
+
+
+                                                <View >
+                                                    <TextInput
+                                                        icon="phone"
+                                                        name="username"
+                                                        mode="underlined"
+                                                        underlineColor='grey'
+                                                        activeUnderlineColor='grey'
+                                                        label="Username"
+                                                        placeholderTextColor='#828088'
+                                                        style={[styles.UserDataContainer]}
+                                                        type="textInput"
+                                                        value={values.username}
+                                                        autoCorrect={false}
+                                                        onChangeText={handleChange('username')}
+                                                        onBlur={handleBlur('username')}
+                                                        left={<TextInput.Icon name="account" color={'#adadad'} />}
+                                                    />
+                                                    {errors.username && touched.username &&
+                                                        <Caption style={GlobelStyle.errorMsg}>{errors.username}</Caption>
+                                                    }
+                                                </View>
+                                                <View >
+                                                    <TextInput
+                                                        icon="phone"
+                                                        name="password"
+                                                        label="Password"
+                                                        // labelStyle={{color:"white"}}
+                                                        style={[styles.UserDataContainer]}
+                                                        // placeholder="Enter your password"
+                                                        mode="undrlined"
+                                                        underlineColor='grey'
+                                                        activeUnderlineColor='grey'
+                                                        tvParallaxMagnification={4}
+                                                        placeholderTextColor='white'
+                                                        type="textInput"
+                                                        value={values.password}
+                                                        autoCorrect={false}
+                                                        onChangeText={handleChange('password')}
+                                                        onBlur={handleBlur('password')}
+                                                        secureTextEntry={hidePass}
+                                                        right={values.password.length > 0 && <TextInput.Icon name={hidePass ? 'eye-off' : 'eye'}
+                                                            onPress={() => changeIcon()} color={'#adadad'} />}
+                                                        left={<TextInput.Icon name="lock" color={'#adadad'} />}
+                                                    />
+                                                    {errors.password && touched.password &&
+                                                        <Caption style={GlobelStyle.errorMsg}>{errors.password}</Caption>
+                                                    }
+                                                </View>
+
+                                                {/* <View style={[GlobelStyle.alignEnd, { marginRight: -15 }]}>
                                                         <Button labelStyle={{ textTransform: "capitalize", fontSize: 12 }} color={AppTheme.Light} onPress={() => navigation.navigate('ForgetPassword')}>
                                                             Forget Password?
                                                         </Button>
                                                     </View> */}
 
 
-                                        <View style={[{ paddingTop: 35 }]}>
-                                            <View style={{ width: '100%' }}>
-                                                <AppButton title="Submit" onPress={handleSubmit} disabled={disableButton} loading={disableButton} />
+                                                <View style={[{ paddingTop: 35 }]}>
+                                                    <View style={{ width: '100%' }}>
+                                                        <AppButton title="Login" color={AppTheme.LightGrey} onPress={handleSubmit} disabled={disableButton} loading={disableButton} />
+                                                    </View>
+                                                </View>
+
+                                                {/* </LinearGradient> */}
+
                                             </View>
                                         </View>
-
-                                        {/* </LinearGradient> */}
-
                                     </View>
 
-                                </View>
+                                </>
+                            )}
+                        </Formik>
+                    </ScrollView>
+                    // :
 
-                            </>
-                        )}
-                    </Formik>
-                </ScrollView>
-                // :
+                    // <InternetConnectivity />
+                    // )
 
-                // <InternetConnectivity />
-                // )
+                }
 
-            }
-
-            <SnackbarComponent visible={showSnackBar}
-                message={'Successfully Login'}
-            />
-
+                <SnackbarComponent visible={showSnackBar}
+                    message={'Successfully Login'}
+                />
+            </ImageBackground>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
 
-
+    image: {
+        flex: 1
+    },
+    UserDataContainer: {
+        backgroundColor: "white",
+        elevation: 18,
+        shadowColor: 'black',
+        marginTop: 6
+    },
+    logo:{
+        fontSize: 46,
+         fontWeight: 'bold',
+          color:"#d9d7d7",
+           lineHeight: 50 ,
+           textShadowColor:"#000",
+        textShadowOffset: { width: 1, height: 1 },
+         textShadowRadius: 1,
+    }
 })

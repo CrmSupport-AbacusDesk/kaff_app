@@ -36,8 +36,8 @@ const GlobelStyle = StyleSheet.create({
         padding: 8,
         marginHorizontal: 12,
         marginVertical: 16,
-        elevation: 16,
-        shadowColor: '#52006A',
+        elevation: 18,
+        shadowColor: 'black',
     },fab: {
         position: 'absolute',
         margin: 16,
@@ -46,7 +46,9 @@ const GlobelStyle = StyleSheet.create({
         backgroundColor: AppTheme.Secondary,
         borderWidth: 1,
         borderColor: AppTheme.Light
-    },
+    },errorMsg : {
+        color: AppTheme.Danger
+    }
 
 })
 export default GlobelStyle;

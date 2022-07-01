@@ -28,7 +28,7 @@ export default function StockTransferDetail({ navigation, route }) {
 
     const stockTransferData = async () => {
         console.log('====================================');
-        console.log("log",route.params.transfer_id);
+        console.log("log", route.params.transfer_id);
         console.log('====================================');
         setLoading(true)
         let warehouseId = await AsyncStorage.getItem('@id')
@@ -53,28 +53,17 @@ export default function StockTransferDetail({ navigation, route }) {
         }).catch(err => console.log('error ->', err))
 
     }
-    const RenderTransferItem = ({ item }) => {
+    const RenderTransferItem = ({ item,index }) => {
         return (
-            <View style={[GlobelStyle.Card, { borderWidth: 1, borderColor: AppTheme.Dark, padding: 0 }]}
-                >
-                <View style={{ backgroundColor: AppTheme.Dark, borderRadius: 6 }}>
-                    {/* <Title style={{ fontSize: 13, color: 'white' }}>  {item.category ? item.category : 'N/A'}</Title> */}
-                    <View style={{ flexDirection: 'row', marginTop: -6 }}>
-                        {/* <Text style={{ fontSize: 13, color: 'white' }}>  {item.productName ? item.productName : 'N/A'}</Text> */}
-                        {/* <Text style={{ fontSize: 13, color: 'white' }}> - {item.ItemCode ? item.ItemCode : 'N/A'}</Text> */}
+            <View style={[{ backgroundColor: 'white', shadowColor: 'black', elevation: 16, marginHorizontal: 12, flexDirection: 'row', alignItems: 'center', flex: 1, borderBottomWidth: 1, borderBottomColor: 'black' }]}
+            >
+                <View style={{ width: "80%", paddingBottom: 4 }}>
+                    <View style={{ flexDirection: 'row',padding:4}}>
+                        <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{index +1}. {item.category ? item.category : "N/A"} - {item.productName ? item.productName : 'N/A'} ({item.ItemCode ? item.ItemCode : 'N/A'} )</Text>
                     </View>
                 </View>
-                <View style={{ padding: 8 }}>
-                    <View style={{  marginTop: 4 }}>
-                        {/* <View style={{ alignItems: 'center', marginRight: 4, borderWidth: 1, flex: 1, borderColor: AppTheme.Medium, paddingBottom: 4, borderStyle: 'dashed' }}> */}
-                            <Text style={{ fontSize: 12,fontWeight:'bold',color:AppTheme.Medium }}>Product Detail</Text>
-                            <Text style={{ fontSize: 12 ,fontWeight:'bold'}}>{item.category ? item.category : "N/A"} - {item.productName ? item.productName : 'N/A'} ({item.ItemCode ? item.ItemCode : 'N/A'} )</Text>
-                        {/* </View> */}
-                    </View>
-                        <View style={{ alignItems: 'center', borderWidth: 1, flexDirection:'row', borderColor: AppTheme.Medium, padding: 4, borderStyle: 'dashed',marginTop:10 }}>
-                            <Text style={{ fontSize: 12,fontWeight:'bold' }}>Total qty transfered : </Text>
-                            <Text style={{ fontSize: 12 }}> {item.qty_transferred ? item.qty_transferred : "N/A"}</Text>
-                        </View>
+                <View style={{ alignItems: 'center', marginRight: 4, borderLeftWidth: 1, flex: 1, borderColor: AppTheme.Medium, paddingBottom: 4, borderStyle: 'dashed' }}>
+                    <Text style={{ fontSize: 12 }}> {item.qty_transferred ? item.qty_transferred : "N/A"}</Text>
                 </View>
             </View>
         )
@@ -89,55 +78,59 @@ export default function StockTransferDetail({ navigation, route }) {
 
                 :
                 // (DATA.length > 0 ?
-                    // <View style={{flex:1}}>
-                    <>
-                        <View style={[GlobelStyle.Card, { marginHorizontal: 0, marginTop: 0 }]}
-                            onPress={() => navigation.navigate('InvoiceDetail', { 'id': item.id })}>
-                            <View >
-                                {/* <Title style={{ fontSize: 13 }}>S.O No. - {InvoiceDetail.SONumber ? InvoiceDetail.SONumber : 'N/A'}</Title> */}
-                                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: -16 }}>
-                                    {/* <Title style={{ fontSize: 14, color: "#6e6d6d" }}>{InvoiceDetail.CustomerName ? InvoiceDetail.CustomerName : 'N/A'} -</Title> */}
-                                    {/* <Title style={{ fontSize: 14, color: AppTheme.Medium }}> {InvoiceDetail.CustomerCode ? InvoiceDetail.CustomerCode : 'N/A'}</Title> */}
-                                </View>
+                // <View style={{flex:1}}>
+                <>
+                    <View style={[GlobelStyle.Card, { marginHorizontal: 0, marginTop: 0 }]}
+                        onPress={() => navigation.navigate('InvoiceDetail', { 'id': item.id })}>
+                        <View >
+                            {/* <Title style={{ fontSize: 13 }}>S.O No. - {InvoiceDetail.SONumber ? InvoiceDetail.SONumber : 'N/A'}</Title> */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: -16 }}>
+                                {/* <Title style={{ fontSize: 14, color: "#6e6d6d" }}>{InvoiceDetail.CustomerName ? InvoiceDetail.CustomerName : 'N/A'} -</Title> */}
+                                {/* <Title style={{ fontSize: 14, color: AppTheme.Medium }}> {InvoiceDetail.CustomerCode ? InvoiceDetail.CustomerCode : 'N/A'}</Title> */}
                             </View>
-                            <View style={{ padding: 8, borderTopWidth: 1, borderColor: AppTheme.Medium }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <Title style={{ fontSize: 12 }}>Date : </Title>
-                                        <Text style={{ fontSize: 12 }}>{moment(StockDetail.transferred_date).format("DD MMM YYYY")}</Text>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <Title style={{ fontSize: 12 }}>Transfer Id : </Title>
-                                        <Text style={{ fontSize: 12 }}>#ST{StockDetail.id ? StockDetail.id : "N/A"}</Text>
-                                    </View>
-
+                        </View>
+                        <View style={{ padding: 8, borderTopWidth: 1, borderColor: AppTheme.Medium }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Title style={{ fontSize: 12 }}>Date : </Title>
+                                    <Text style={{ fontSize: 12 }}>{moment(StockDetail.transferred_date).format("DD MMM YYYY")}</Text>
                                 </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Title style={{ fontSize: 12 }}>Transfer Id : </Title>
+                                    <Text style={{ fontSize: 12 }}>#ST{StockDetail.id ? StockDetail.id : "N/A"}</Text>
                                 </View>
-                                <View style={{ flexDirection: 'row', marginTop: 4 }}>
-                                    <View style={{ alignItems: 'center', borderWidth: 1, flex: 1, borderColor: AppTheme.Medium, paddingBottom: 4, marginRight: 4, borderStyle: 'dashed' }}>
-                                        <Title style={{ fontSize: 12 }}>Transfer By</Title>
-                                        <Text style={{ fontSize: 12 }}>{StockDetail.transferred_by_name ? StockDetail.transferred_by_name : "N/A"}</Text>
-                                    </View>
-                                    <View style={{ alignItems: 'center', borderWidth: 1, flex: 1, borderColor: AppTheme.Medium, paddingBottom: 4, borderStyle: 'dashed' }}>
-                                        <Title style={{ fontSize: 12 }}>Transfer Type</Title>
-                                        <Text style={{ fontSize: 12 }}>{StockDetail.transferred_type ? StockDetail.transferred_type : "N/A"}</Text>
-                                    </View>
-                                    <View style={{ alignItems: 'center', borderWidth: 1, flex: 1, marginLeft: 4, borderColor: AppTheme.Medium, borderStyle: 'dashed' }}>
-                                        <Title style={{ fontSize: 12 }}>Transfer To</Title>
-                                        <Text style={{ fontSize: 12 }}>{StockDetail.transferred_to_name ? StockDetail.transferred_to_name : "N/A"}</Text>
-                                    </View>
+
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                            </View>
+                            <View style={{ flexDirection: 'row', marginTop: 4 }}>
+                                <View style={{ alignItems: 'center', borderWidth: 1, flex: 1, borderColor: AppTheme.Medium, paddingBottom: 4, marginRight: 4, borderStyle: 'dashed' }}>
+                                    <Title style={{ fontSize: 12 }}>Transfer By</Title>
+                                    <Text style={{ fontSize: 12 }}>{StockDetail.transferred_by_name ? StockDetail.transferred_by_name : "N/A"}</Text>
+                                </View>
+                                <View style={{ alignItems: 'center', borderWidth: 1, flex: 1, marginLeft: 4, borderColor: AppTheme.Medium, borderStyle: 'dashed' }}>
+                                    <Title style={{ fontSize: 12 }}>Transfer To</Title>
+                                    <Text style={{ fontSize: 12 }}>{StockDetail.transferred_to_name ? StockDetail.transferred_to_name : "N/A"}</Text>
                                 </View>
                             </View>
                         </View>
-                        <View style={{flex:1}}>
+                    </View>
+                    <View style={styles.TableHead}>
+                        <View style={{ width: "80%" }}>
+                            <Title style={{ fontSize: 13, color: 'white', paddingLeft: 6 }}>Item information</Title>
+                        </View>
+                        <View style={{ width: "20%" }}>
+                            <Title style={{ fontSize: 13, color: 'white' }}>Total Qty</Title>
+                        </View>
+                    </View>
+                    <View style={{ flex: 1 }}>
                         <FlatList
                             data={DATA}
                             renderItem={RenderTransferItem}
                             keyExtractor={item => item.id}
                         />
-                        </View>
+                    </View>
                 </>
             }
         </SafeAreaView>
@@ -146,5 +139,13 @@ export default function StockTransferDetail({ navigation, route }) {
 const styles = StyleSheet.create({
     Container: {
         flex: 1
+    },
+    TableHead: {
+        flexDirection: 'row',
+        backgroundColor: AppTheme.Dark,
+        borderRadius: 6,
+        marginHorizontal: 12,
+        padding: 2,
+        marginBottom: -2
     }
 })

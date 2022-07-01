@@ -35,35 +35,33 @@ const USerData = async() => {
                     </View>
                 </Swiper>
             </View>
-            <View style={{marginVertical:16}}>
+            <View style={[styles.Master]}>
+                <View style={{flexDirection:'row',marginTop:46}}>
                 <TouchableOpacity style={styles.Product} onPress={()=> navigation.navigate('ReceivedGRN')}>
-                    <Icon name='shopping-cart' />
-                    <Title>Product GRN</Title>
-                    <Icon name="keyboard-arrow-right"  />
+                <Image source={require("../Assets/productgrn.png")} resizeMode="cover" style={styles.ProductIcons} />
+                    <Title style={{fontSize:14}}>Product GRN</Title>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.Product} onPress={()=> navigation.navigate('Invoice')}>
-                    <Icon name='list-alt' />
-                    <Title>Invoice</Title>
-                    <Icon name="keyboard-arrow-right" />
+                <Image source={require("../Assets/invoice.png")} resizeMode="cover" style={styles.ProductIcons} />
+                    <Title style={{fontSize:14}}>Invoice</Title>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.Product} onPress={()=> navigation.navigate('StockTransferList' ,{'type' : 'External'})}>
+                </View>
+                {/* <TouchableOpacity style={styles.Product} onPress={()=> navigation.navigate('StockTransferList' ,{'type' : 'External'})}>
                     <Icon name='widgets' />
                     <Title>Stock Transfer External</Title>
                     <Icon name="keyboard-arrow-right"  />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <View style={{flexDirection:'row'}}>
                 <TouchableOpacity style={styles.Product} onPress={()=> navigation.navigate('StockTransferList',{'type':'Internal' })}>
-                    <Icon name='widgets' />
-                    <Title>Stock Transfer Internal</Title>
-                    <Icon name="keyboard-arrow-right" />
+                <Image source={require("../Assets/stocktrans.png")} resizeMode="cover" style={styles.ProductIcons} />
+                    <Title style={{fontSize:14}}>Stock transfer</Title>
+                    <Title style={{fontSize:14,top:-9}}>Internal</Title>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.Product} onPress={()=> navigation.navigate('StockAudit')}>
-                    <Icon name='widgets' />
-                    <Title>Stock Audit</Title>
-                    <Icon name="keyboard-arrow-right" />
+                <Image source={require("../Assets/audit.webp")} resizeMode="cover" style={styles.ProductIcons} />
+                    <Title style={{fontSize:14}}>Stock audit</Title>
                 </TouchableOpacity>
-                {/* <TouchableOpacity style={styles.Product} onPress={()=> navigation.navigate('LogIn')}>
-                    <Title>Login</Title>
-                </TouchableOpacity> */}
+                </View>
             </View>
         </View>
     )
@@ -73,7 +71,7 @@ const USerData = async() => {
 const styles = StyleSheet.create({
     Dashboard: {
         flex: 1,
-
+        backgroundColor:AppTheme.LightGrey
     },
     sliderContainer: {
         height: 180,
@@ -91,16 +89,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     Master: {
-        // flex:1,
-        alignItems: 'center',
-        marginHorizontal: 16,
-        marginBottom: 6,
-        height: 70,
-        borderBottomWidth: 4,
-        borderRadius: 4,
-        // backgroundColor:'red',
-        borderColor: AppTheme.Danger,
-        flexDirection: 'row',
+        marginTop:36,
+        alignItems:'center',
+        backgroundColor:'white',
+        flex:1,
+        borderTopLeftRadius:26,
+        borderTopRightRadius:26,
+        shadowColor: 'black',
+        elevation: 18,
     },
     MasterCount: {
         borderRadius: 4,
@@ -111,12 +107,14 @@ const styles = StyleSheet.create({
         padding: 2,
         // width: '12%',
         borderWidth: 2,
-        borderColor: '#b30006',
+        borderColor: '#e3e3e3',
         alignItems: 'center',
         justifyContent: 'center'
     },
     Product: {
         // backgroundColor: 'white',
+        height:150,
+        width:160,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 3, },
         shadowOpacity: 0.40,
@@ -129,7 +127,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         marginBottom: 10,
         justifyContent: 'space-between',
-        flexDirection: 'row',
         alignItems: 'center'
     },
     ProdCount: {
@@ -146,6 +143,10 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         width: '80%',
         justifyContent: 'center'
+    },
+    ProductIcons:{
+        height:70,
+        width:60
     }
 })
 export default Dashboard;

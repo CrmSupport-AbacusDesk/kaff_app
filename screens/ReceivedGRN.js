@@ -55,11 +55,11 @@ export default function ReceivedGRN({ navigation }) {
                 </View>
                 <View style={{ padding: 8 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',marginTop:-8 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                    {/* <View style={{ flexDirection: 'row', alignItems: 'center'}}>
                         <Title style={{ fontSize: 14 }}>Date : </Title>
                         <Text>{moment(item.date_created).format("DD MMM YYYY")}</Text>
-                    </View>
-                    <View style={{flexDirection:'row'}}>
+                    </View> */}
+                    <View style={{flexDirection:'row',marginLeft:'auto',marginVertical:4}}>
                     <Icon name="qr-code-scanner" />
                     <Icon name="arrow-forward-ios" />
                     </View>
