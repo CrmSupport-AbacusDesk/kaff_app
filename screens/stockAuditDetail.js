@@ -50,41 +50,21 @@ export default function StockAuditDetail({ navigation, route }) {
         }).catch(err => console.log('Add claim line 151 ->', err))
 
     }
-    const RenderGrnData = ({ item }) => {
+    const RenderGrnData = ({ item ,index}) => {
         return (
-            <View style={[GlobelStyle.Card, { borderWidth: 1, borderColor: AppTheme.Dark, padding: 0 }]}
-                >
-                <View style={{ backgroundColor: AppTheme.Dark, borderRadius: 6 }}>
-                    <Title style={{ fontSize: 13, color: 'white' }}>  {item.category ? item.category : 'N/A'}</Title>
+            <View style={[{backgroundColor:'white',shadowColor:'black',elevation:16,marginHorizontal:12,flexDirection:'row',alignItems:'center',flex:1,borderBottomWidth:1,borderBottomColor:'black'}]}
+            >
+                <View style={{padding:4, width: "57%" }}>
+                    <Title style={{ fontSize: 12}}> {index+1}.  {item.category ? item.category : 'N/A'}</Title>
                     <View style={{ flexDirection: 'row', marginTop: -6 }}>
-                        <Text style={{ fontSize: 13, color: 'white' }}>  {item.productName ? item.productName : 'N/A'}</Text>
-                        <Text style={{ fontSize: 13, color: 'white' }}> - {item.ItemCode ? item.ItemCode : 'N/A'}</Text>
+                        <Text style={{ fontSize: 12}}>  {item.productName ? item.productName : 'N/A'}</Text>
+                        <Text style={{ fontSize: 12}}> - {item.ItemCode ? item.ItemCode : 'N/A'}</Text>
                     </View>
                 </View>
-                <View style={{ padding: 8 }}>
-                    {/* <View style={{ flexDirection: 'row', marginTop: 4 }}> */}
-                        <View style={{ flexDirection:'row', marginRight: 4, borderWidth: 1, flex: 1, borderColor: AppTheme.Medium, padding: 4, borderStyle: 'dashed' }}>
-                            <Text style={{ fontSize: 12,fontWeight:'bold' }}>Barcode :</Text>
-                            <Text style={{ fontSize: 13 , fontWeight:'bold' }}>   {item.barcode ? item.barcode : "N/A"}</Text>
-                        
-                        {/* <View style={{ alignItems: 'center', borderWidth: 1, flex: 1, borderColor: AppTheme.Medium, paddingBottom: 4, borderStyle: 'dashed' }}>
-                            <Text style={{ fontSize: 12,fontWeight:'bold' }}>Pending Qty</Text>
-                            <Text style={{ fontSize: 12 }}>₹ {item.QtyPending ? item.QtyPending : "N/A"}</Text>
-                        </View>
+                        <View style={{  borderLeftWidth: 1, flex: 1, borderColor: AppTheme.Medium, padding: 4, borderStyle: 'dashed' , width: "40%" }}>
+                            <Text style={{ fontSize: 12 , fontWeight:'bold' }}>{item.barcode ? item.barcode : "N/A"}</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', marginTop: 4 }}>
-
-                        <View style={{ alignItems: 'center', marginRight: 4, borderWidth: 1, flex: 1, borderColor: AppTheme.Medium, paddingBottom: 4, borderStyle: 'dashed' }}>
-                            <Text style={{ fontSize: 12,fontWeight:'bold' }}>Rate</Text>
-                            <Text style={{ fontSize: 12 }}>₹ {item.SalesPrice ? item.SalesPrice : "N/A"}</Text>
-                        </View>
-                        <View style={{ alignItems: 'center', borderWidth: 1, flex: 1, borderColor: AppTheme.Medium, paddingBottom: 4, borderStyle: 'dashed' }}>
-                            <Text style={{ fontSize: 12,fontWeight:'bold' }}>Total Amount</Text>
-                            <Text style={{ fontSize: 12 }}>₹ {item.ItemAmount ? item.ItemAmount : "N/A"}</Text>
-                        </View>
-                    </View> */}
-                    </View>
-                </View>
+            
             </View>
         )
     }
@@ -137,6 +117,16 @@ export default function StockAuditDetail({ navigation, route }) {
                                 </View>
                             </View>
                         </View>
+                        
+                     
+                        <View style={styles.TableHead}>
+                            <View style={{ width: "60%" }}>
+                                <Title style={{ fontSize: 13, color: 'white', paddingLeft: 6 }}>Item information</Title>
+                            </View>
+                            <View style={{ width: "40%" }}>
+                                <Title style={{ fontSize: 13, color: 'white' }}>Barcode</Title>
+                            </View>
+                        </View>
                         <FlatList
                             data={DATA}
                             renderItem={RenderGrnData}
@@ -155,5 +145,13 @@ export default function StockAuditDetail({ navigation, route }) {
 const styles = StyleSheet.create({
     Container: {
         flex: 1
+    },
+    TableHead: {
+        flexDirection: 'row',
+        backgroundColor: AppTheme.Dark,
+        borderRadius: 6,
+        marginHorizontal: 12,
+        padding: 2,
+        marginBottom: -2
     }
 })
